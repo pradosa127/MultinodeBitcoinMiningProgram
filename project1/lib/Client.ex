@@ -2,7 +2,6 @@ defmodule ClientModule do
   def client do #1
     receive do
         {from, :mineCoinsInBatch, list, numberOfLeadingZeros, str, batchSize, processedNo,numOfCoinsMined} ->
-              #  IO.puts "inside mineCoinsInBatch of the client"
                if str == "" do
                     formString("", list, numberOfLeadingZeros, batchSize, processedNo,numOfCoinsMined, from)
                else
@@ -13,7 +12,6 @@ defmodule ClientModule do
 end
 
   def findCoins(str, list, batchSize, index, from, numOfCoinsMined) do
-    # IO.puts "#{index} #{batchSize}"
     if index == batchSize do
         send from, {self(), :getBatch, str, numOfCoinsMined}
     else
@@ -22,8 +20,7 @@ end
       tuple  = (:binary.match(hash, str)) # to find the index of str in hash
       if tuple != :nomatch do
         {startsAt,_} = tuple
-        if startsAt==0 do # required number of leading zeros found
-          # IO.puts "#{input} #{hash}"                
+        if startsAt==0 do # required number of leading zeros found           
           send from, {self(), :printBitCoinCli, list, input, hash, str, numOfCoinsMined+1, index+1, batchSize}
         else
           findCoins(str, list, batchSize, index+1, from, numOfCoinsMined)        
@@ -41,7 +38,6 @@ end
       #formString(str, n-1, from, noOfCoinsMined)
     end
     if n==0 do
-      # IO.puts str
       findCoins(str, list, batchSize, processedNo, from,numOfCoinsMined)
     end
   end
