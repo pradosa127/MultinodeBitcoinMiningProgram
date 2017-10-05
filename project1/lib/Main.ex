@@ -27,11 +27,7 @@ defmodule Main do
             
             
         end
-    
-    
     loop()
-    
-    #:timer.sleep(100000000)# to avoid the main program from stopping while other process are working asynchronously
   end
 
   def loop do
