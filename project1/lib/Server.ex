@@ -33,8 +33,6 @@ defmodule ServerModule do
     if i>0 do      
       input =  Enum.join(["92159813", :rand.uniform(100000000000)]) # to append ufid with a random nonce    
       list = list ++ [input]
-      #IO.puts "hh"
-      #:timer.sleep(100000)
       formBatchOfStrings(list, i-1,  batchSize, str, n, self, from, numOfCoinsMined) 
     else
       send from, {self(), :mineCoinsInBatch, list, n, str, batchSize, 0, numOfCoinsMined}                
