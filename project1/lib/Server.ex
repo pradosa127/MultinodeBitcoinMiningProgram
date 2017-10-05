@@ -29,10 +29,6 @@ defmodule ServerModule do
     server(n)
   end
 
-  # def printCoinsMinedByClient(from, self, inputList, hashList, noOfCoinsMined, index) do
-  #   IO.puts "#{inspect from} -> [#{index}] #{Enum.at(inputList, index)} #{Enum.at(hashList, index)}"        
-  # end
-
   def formBatchOfStrings(list, i, batchSize, str, n, self, from, numOfCoinsMined) do
     if i>0 do      
       input =  Enum.join(["92159813", :rand.uniform(100000000000)]) # to append ufid with a random nonce    
@@ -47,7 +43,6 @@ defmodule ServerModule do
 
   def compute(str, noOfCoinsMined, from) do
       input =  Enum.join(["92159813", :rand.uniform(100000000000)]) # to append ufid with a random nonce
-      #IO.puts input
       hash =  Base.encode16(:crypto.hash(:sha256, input))|>String.downcase()
       tuple  = (:binary.match(hash, str)) # to find the index of str in hash
       if tuple != :nomatch do
